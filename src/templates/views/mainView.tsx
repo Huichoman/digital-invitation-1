@@ -2,31 +2,93 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Opening from "../mainView/opening";
 import Introduction from "../mainView/introduction";
-import useWindowWidth from "../../services/hooks/useWindowWidth";
 import StartAnimation from "../components/startAnimation";
 import Location from "../mainView/location";
-import Doa from "../mainView/doa";
-import EndFooter from "../mainView/endFooter";
+import DressCode from "../mainView/DressCode";
+
 import Navbar from "./navbar";
 import Gift from "../mainView/gift";
 import Schedule from "../mainView/schedule";
+import { useSearchParams } from "react-router-dom";
+import axios, { AxiosResponse, AxiosError } from "axios";
+import Rsvp from "../mainView/rsvp";
+import useWindowWidth from "../../services/hooks/useWindowWidth";
+import Memorable from "../mainView/memorable";
+
+type InvitationType = {
+  name: string;
+  phone: number;
+  tickets: number;
+  attendance: string;
+  message: string;
+}
 
 export default function MainView({
   isOpen,
   audio,
 }: {
-  isOpen: Boolean;
-  audio: any;
+  isOpen: boolean;
+  audio: React.RefObject<HTMLAudioElement>;
 }) {
-  const windowWidth = useWindowWidth();
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get("invitacion");
 
+  console.log('invitacion', code)
+
+  const readInvitation = async (phone: number): Promise<{ error: string } | InvitationType | undefined> => {
+
+    const config = {
+      data: {
+        phone: phone
+      },
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      maxBodyLength: Infinity,
+      method: "POST",
+      url: `${import.meta.env.VITE_BASE_URL}read`,
+    };
+
+    const response = await axios
+      .request(config)
+      .then((response: AxiosResponse<InvitationType>) => {
+        // console.log("response", response.data);
+        return response.data;
+      })
+      .catch((error: AxiosError<{ error: string }>) => {
+        console.log("Error >", error.message);
+        return error.response?.data;
+      });
+
+    return response;
+
+  }
+  const windowWidth = useWindowWidth();
   const refHome = useRef(null);
   const refBride = useRef(null);
   const refLocation = useRef(null);
   const refSchedule = useRef(null);
   const refComment = useRef(null);
+  const refImage = useRef(null);
 
   const [, setName] = useState("");
+  const [invitation, setInvitation] = useState<InvitationType | undefined>(undefined);
+
+  useEffect(() => {
+    if (code) {
+      readInvitation(Number(code)).then((response) => {
+        console.log('response', response)
+        if (response && 'error' in response) {
+          console.log('error', response.error)
+        } else {
+          setInvitation(response);
+          console.log('name', response)
+        }
+      })
+    }
+  }, [code]);
+
+
   useEffect(() => {
     const path = window.location.pathname;
     const name = path?.split("/")[1].split("-").join(" ");
@@ -57,8 +119,8 @@ export default function MainView({
     if (!audio?.current) {
       return;
     }
-    audio?.current?.play();
-  }, []);
+    //audio?.current?.play();
+  }, [audio]);
 
   return (
     <React.Fragment>
@@ -108,15 +170,13 @@ export default function MainView({
               refComment={refComment}
             />
             <Opening refHome={refHome} />
-            <Introduction windowWidth={windowWidth} refBride={refBride} />
+            <Introduction refBride={refBride} />
             <Location refLocation={refLocation} />
             <Schedule refSchedule={refSchedule} />
-            <Doa />
-            {/* <Memorable windowWidth={windowWidth} refImage={refImage} /> */}
+            <DressCode />
             <Gift />
-            {/* <Rsvp name={name} /> */}
-            {/* <Comment refComment={refComment} name={name} /> */}
-            <EndFooter />
+            {invitation ? <Rsvp name={invitation.name} tickets={invitation.tickets} phone={invitation.phone} /> : null}
+            <Memorable windowWidth={windowWidth} refImage={refImage} />
           </React.Fragment>
         )}
       </motion.div>

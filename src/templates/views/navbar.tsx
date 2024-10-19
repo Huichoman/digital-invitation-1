@@ -14,7 +14,13 @@ export default function Navbar({
   refLocation,
   refSchedule,
   refComment,
-}: any) {
+}: {
+  refHome: React.RefObject<HTMLElement>;
+  refBride: React.RefObject<HTMLElement>;
+  refLocation: React.RefObject<HTMLElement>;
+  refSchedule: React.RefObject<HTMLElement>;
+  refComment: React.RefObject<HTMLElement>;
+}) {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const t1 = gsap.timeline();
@@ -97,7 +103,6 @@ export default function Navbar({
   const bride = useInView(refBride);
   const location = useInView(refLocation);
   const schedule = useInView(refSchedule);
-  // const comment = useInView(refComment);
 
   useEffect(() => {
     const updateXWhenScroll = () => {
@@ -123,19 +128,19 @@ export default function Navbar({
   const handleScroll = (desc: string) => {
     if (desc === "home") {
       // setXPosition(10);
-      refHome.current.scrollIntoView({ behavior: "smooth" });
+      refHome.current?.scrollIntoView({ behavior: "smooth" });
     } else if (desc == "bride") {
       // setXPosition(29.5);
-      refBride.current.scrollIntoView({ behavior: "smooth" });
+      refBride.current?.scrollIntoView({ behavior: "smooth" });
     } else if (desc === "location") {
       // setXPosition(50);
-      refLocation.current.scrollIntoView({ behavior: "smooth" });
+      refLocation.current?.scrollIntoView({ behavior: "smooth" });
     } else if (desc === "schedule") {
       // setXPosition(70);
-      refSchedule.current.scrollIntoView({ behavior: "smooth" });
+      refSchedule.current?.scrollIntoView({ behavior: "smooth" });
     } else if (desc === "comment") {
       // setXPosition(90);
-      refComment.current.scrollIntoView({ behavior: "smooth" });
+      refComment.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -158,7 +163,6 @@ export default function Navbar({
       <Heart onClick={() => handleScroll("bride")} />
       <Location onClick={() => handleScroll("location")} />
       <Schedule onClick={() => handleScroll("schedule")} />
-      {/* <Comment onClick={() => handleScroll("comment")} /> */}
     </div>
   );
 }

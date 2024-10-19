@@ -8,7 +8,7 @@ export default function Wave() {
       y="0px"
       viewBox="0 0 1440 178.3"
       fill="rgb(147 197 253)"
-      className="absolute z-20 top-0 min-h-[4.5rem]"
+      className="absolute z-20 top-0 min-h-[4.5rem] text-resedaGreen fill-resedaGreen"
     >
       <path
         d="M1380,53.3C1320,43,1200,21,1080,26.7C960,32,840,64,720,74.7C600,85,480,75,360,58.7C240,43,120,21,60,10.7

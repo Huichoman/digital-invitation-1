@@ -14,7 +14,7 @@ export default function CountdownCard({
   return (
     <div
       id={desc}
-      className="relative text-center border rounded-lg py-2 w-[60px] shadow-lg"
+      className="relative text-center border rounded-lg py-2 w-[60px] shadow-shadow14 bg-bone text-resedaGreen font-poppins"
     >
       <motion.div
         animate={isInView ? { scaleY: 0 } : { scaleY: 1 }}

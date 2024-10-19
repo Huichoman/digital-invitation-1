@@ -1,115 +1,31 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Modal from "./modal";
-import toast from "react-hot-toast";
-import { addData } from "../../services/firebase/services";
+
+
 
 export default function ModalRsvp({
   setIsModalOpen,
-  username,
+  imageSrc,
 }: {
-  setIsModalOpen: Function;
-  username: string;
+  setIsModalOpen: (isOpen: boolean) => void;
+  imageSrc: string;
 }) {
   const [close, setClose] = useState(false);
 
-  const formRef = useRef<HTMLFormElement>(null);
-  const handleButtonClick = () => {
-    if (formRef?.current) {
-      formRef?.current?.requestSubmit(); // Programmatically submit the form
-    }
-  };
+  const onClose = () => {
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    setClose(true);
+  }
 
-    if (!formRef?.current) {
-      return;
-    }
-    const formData = new FormData(formRef.current);
-    const name = formData.get("name") as string;
-    const telepon = formData.get("telepon") as string;
-    const email = formData.get("email") as string;
-    let presence = formData.get("presence") as string | boolean;
-    const jumlah = formData.get("jumlah") as string;
-    const keterangan = formData.get("keterangan") as string;
-
-    const regex = /^-?\d+(\.\d+)?([eE][-+]?\d+)?$/;
-
-    if (
-      name === "" ||
-      telepon === "" ||
-      email === "" ||
-      presence === "" ||
-      jumlah === ""
-    ) {
-      toast.error("Data tidak boleh ada yang kosong");
-      return;
-    }
-
-    if (username !== name) {
-      toast.error("Username Tidak Sesuai");
-      return;
-    }
-
-    if (!regex.test(jumlah) || !regex.test(telepon)) {
-      toast.error("Masukkan Angka dengan Benar!");
-      return;
-    }
-
-    if (!email.includes("@") || !email.includes(".")) {
-      toast.error("Masukkan Email dengan Benar!");
-      return;
-    }
-
-    try {
-      console.log(presence);
-      if (presence == "hadir") {
-        presence = true;
-      } else if (presence == "tidakHadir") {
-        presence = false;
-      }
-      await addData("rsvp", {
-        name,
-        telepon,
-        email,
-        presence,
-        jumlah,
-        keterangan,
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      toast.success("Terimakasih Telah Mengisi Form");
-      setClose(true);
-    }
-  };
-
-  const preventInvalidInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (["e", "E", "+", "-", "."].includes(e.key)) {
-      e.preventDefault();
-    }
-  };
-
-  const preventPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    const pasteData = e.clipboardData.getData("Text");
-    if (
-      pasteData.includes("e") ||
-      pasteData.includes("E") ||
-      pasteData.includes("+") ||
-      pasteData.includes("-") ||
-      pasteData.includes(".")
-    ) {
-      e.preventDefault();
-    }
-  };
   return (
     <Modal
       width="max-w-xl"
       onClose={() => setIsModalOpen(false)}
       closed={close}
     >
-      <section className="flex flex-col gap-3 text-neutral-600">
-        <h1 className="text-center font-bold text-xl">RSVP</h1>
+      <div className="flex flex-col gap-3 text-neutral-600 h-full w-full bg-black bg-opacity-25">
+        <img onClick={onClose} src={imageSrc} alt={imageSrc} className="cursor-pointer" />
+        {/* <h1 className="text-center font-bold text-xl">RSVP</h1>
         <p className="text-sm font-light text-gray-500">
           <span className="text-red-500">*</span> : Wajib Diisikan
         </p>
@@ -232,8 +148,8 @@ export default function ModalRsvp({
           >
             Cancel
           </button>
-        </div>
-      </section>
+        </div> */}
+      </div>
     </Modal>
   );
 }

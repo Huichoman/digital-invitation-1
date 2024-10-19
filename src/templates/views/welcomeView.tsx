@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Dewa from "../../assets/dewa";
+import Dewa from "../../assets/bride";
 import Dan from "../../assets/dan";
-import Tina from "../../assets/tina";
+import Tina from "../../assets/groom";
 import { motion } from "framer-motion";
 import useWindowWidth from "../../services/hooks/useWindowWidth";
 
@@ -12,7 +12,7 @@ export default function WelcomeView({
 }: {
   isOpen: boolean;
   setIsOpen: (boolean: boolean) => void;
-  audio: any;
+  audio: React.RefObject<HTMLAudioElement>;
 }) {
   const windowWidth = useWindowWidth();
   const [name, setName] = useState("");
@@ -31,17 +31,17 @@ export default function WelcomeView({
       <motion.div
         className="absolute max-w-xl w-full p-5 h-[100dvh] flex flex-col justify-center items-center bg-transparent gap-2 overflow-hidden"
         animate={
-          isOpen && { display: "none", opacity: 0, transition: { delay: 1.2 } }
+          isOpen && { display: "none", opacity: 0, transition: { delay: 6.2 } }
         }
       >
-        <motion.p
+        {/* <motion.p
           animate={
             isOpen && { opacity: 0, y: -30, transition: { duration: 0.5 } }
           }
           className="text-lg text-white"
         >
           The Wedding Of
-        </motion.p>
+        </motion.p> */}
         <motion.div
           animate={
             isOpen && {
@@ -50,7 +50,7 @@ export default function WelcomeView({
               transition: { duration: 0.5, delay: 0.2 },
             }
           }
-          className="w-44 h-44 rounded-full overflow-hidden relative"
+          className="w-60 h-60 rounded-full overflow-hidden relative"
         >
           <motion.div
             className="w-[110%] h-full absolute top-0 left-0"
@@ -71,11 +71,11 @@ export default function WelcomeView({
               transition: { duration: 1.5, delay: 0.6 },
             }
           }
-          className="flex max-w-[13rem]"
+          className="flex max-w-[16rem] h-[4rem] items-center"
         >
           <Tina className="fill-white max-w-[300px] w-full -mr-5" />
           <Dan
-            viewBox="-5 68 300 110"
+            viewBox="0 -25 36.66 70.28"
             className="fill-white max-w-[90px] w-full"
           />
           <Dewa className="fill-white max-w-[300px] w-full -ml-5" />
@@ -85,12 +85,12 @@ export default function WelcomeView({
             isOpen && {
               opacity: 0,
               y: 30,
-              transition: { duration: 0.5, delay: 0.3 },
+              transition: { duration: 1.5, delay: 2 },
             }
           }
-          className={`text-white/80`}
+          className={`text-white/80 font-montserrat`}
         >
-          Kpd. Bpk/Ibu/Saudara/i
+          ¡NOS CASAMOS!
         </motion.p>
         {name !== "" && (
           <>
@@ -125,11 +125,10 @@ export default function WelcomeView({
             isOpen && { opacity: 0, y: 30, transition: { duration: 0.5 } }
           }
           onClick={handleClick}
-          className={`p-[6px] px-4 bg-blue-400 text-white rounded-full mt-2 hover:bg-blue-400/80 ${
-            windowWidth < 500 && "text-xs"
-          }`}
+          className={`p-[6px] px-8 font-semibold bg-[#EFEEECff] text-[#354135ff] rounded-full mt-2 hover:bg-blue-400/80 ${windowWidth < 500 && "text-SM"
+            }`}
         >
-          Buka Undangan
+          Abrir
         </motion.button>
       </motion.div>
     </React.Fragment>

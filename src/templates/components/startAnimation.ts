@@ -65,7 +65,7 @@ export default function StartAnimation() {
       .from("#year", {
         opacity: 0,
         y: "+=15",
-        duration: 0.5,
+        duration: 1,
       })
       .from(
         "#date",

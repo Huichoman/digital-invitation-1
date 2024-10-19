@@ -1,35 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@500;700;900&family=Bad+Script&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.dewa {
+.groom {
   fill-opacity: 0;
-  stroke: #986a52;
+  stroke: #597159;
   stroke-width: 0px;
   stroke-dasharray: 4500;
-  animation: draw 7s ease 1.5s forwards;
-  max-width: 350px;
   width: 100%;
+  animation: draw 6s ease 0.5s forwards;
+  max-width: 350px;
+ 
 }
-.tina {
+
+
+.bride {
   fill-opacity: 0;
-  stroke: #986a52;
+  stroke: #597159;
   stroke-width: 0px;
   stroke-dasharray: 4500;
   width: 100%;
   max-width: 300px;
-  animation: draw 10s ease forwards;
+  animation: draw 6s ease 2.2s forwards;
 }
 
 .dan {
   fill-opacity: 0;
-  stroke: #986a52;
+  stroke: #597159;
   stroke-width: 0px;
   stroke-dasharray: 4500;
   width: 100%;
   max-width: 300px;
-  animation: draw 8s ease 1s forwards;
+  animation: draw 4s ease 1.5s forwards;
 }
+
+
+
+
 
 @keyframes draw {
   0% {
@@ -38,10 +46,16 @@
   }
   10% {
     stroke-width: 1.5px;
+    fill-opacity: 0.1
+  }
+  50% {
+    stroke-width: 1.5px;
+    fill-opacity: 01
   }
   100% {
     stroke-dashoffset: 0;
     stroke-width: 1.5px;
+    fill-opacity: 1;
   }
 }
 

@@ -1,5 +1,4 @@
 import useVisibility from "../../services/hooks/useVisibility";
-import Bank from "../components/bank";
 import MainLayout from "../components/mainLayout";
 import { motion } from "framer-motion";
 
@@ -8,7 +7,7 @@ export default function Gift() {
   const text2 = useVisibility();
   const text3 = useVisibility();
   const text4 = useVisibility();
-  const image = useVisibility();
+
   return (
     <MainLayout className="text-center gap-5" height="h-full">
       <motion.h1
@@ -19,7 +18,7 @@ export default function Gift() {
         transition={{ duration: 0.7 }}
         className="latin-25"
       >
-        Wedding Gift
+        Mesa de Regalos
       </motion.h1>
       <motion.p
         ref={text2.ref}
@@ -28,46 +27,41 @@ export default function Gift() {
         }
         transition={{ duration: 0.7 }}
       >
-        Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika
-        memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara
-        cashless.
+        Si quieres tener un detalle con nosotros dejaremos algunas opciones que recibiremos con mucho cariño.
       </motion.p>
-      <Bank
-        image="/images/bca.png"
-        rek="2610177657"
-        name="a/n Agustina untari"
-      />
-      <motion.img
-        ref={image.ref}
+
+      <motion.div
+        ref={text3.ref}
         animate={
-          image.isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }
+          text2.isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }
         }
         transition={{ duration: 0.7 }}
-        src="https://app.sangmempelai.id/webview/template/front/amplop/187ece4abf101efceac87481ccf9dd5d.png"
-        alt=""
-        className="w-full max-w-[150px]"
-      />
-      <div className="font-medium z-10">
-        <motion.p
-          ref={text3.ref}
-          animate={
-            text3.isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }
-          }
-          transition={{ duration: 0.7 }}
-        >
-          Alamat Pengiriman Kado :
-        </motion.p>
-        <motion.p
-          ref={text4.ref}
-          animate={
-            text4.isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }
-          }
-          transition={{ duration: 0.7 }}
-        >
-          Agustina Untari (08818592509) Pancasan, Desa Blabursari RT 01 RW 06
-          Kec. Ajibarang Kab Banyumas
-        </motion.p>
-      </div>
+        className="flex flex-col font-light z-10 gap-2 mb-6"
+      >
+        <img
+          src="/images/liverpool.png"
+          alt="Dress code"
+          className="w-[250px] rounded-xl"
+        />
+        <p className="text-kobicha font-semibold text-2xl">Evento #51460568</p>
+      </motion.div>
+
+      <motion.div
+        ref={text4.ref}
+        animate={
+          text2.isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }
+        }
+        transition={{ duration: 0.7 }}
+        className="font-light z-10 gap-2"
+      >
+        <img
+          src="/images/envelopemoney.png"
+          alt="Dress code"
+          className="w-[250px] "
+        />
+        <p className="text-kobicha font-semibold text-2xl">Lluvia de Sobres</p>
+      </motion.div>
+
     </MainLayout>
   );
 }

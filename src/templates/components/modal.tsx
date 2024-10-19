@@ -8,12 +8,12 @@ export default function Modal({
   width = "",
 }: {
   children: React.ReactNode;
-  onClose: any;
-  closed?: any;
+  onClose: () => void;
+  closed?: boolean;
   width?: string;
 }) {
   const [close, setClose] = useState(false);
-  const ref: any = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | null>(null);
 
   const handleClose = useCallback(() => {
@@ -22,7 +22,7 @@ export default function Modal({
     }
     timeoutRef.current = window.setTimeout(() => {
       onClose();
-    }, 300);
+    }, 50);
     setClose(true);
   }, [onClose]);
 
@@ -30,11 +30,11 @@ export default function Modal({
     if (closed) {
       handleClose();
     }
-    const handleClickOutside = (event: any) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (closed) {
         return;
       }
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         handleClose();
       }
     };

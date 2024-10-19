@@ -7,24 +7,61 @@ import { useInView, motion } from "framer-motion";
 const IMAGES = [
   {
     id: 1,
-    url: "/formal-face.jpg",
+    url: "/images/std-1.jpg",
   },
   {
     id: 2,
-    url: "/shiina.jpg",
+    url: "/images/std-2.jpg",
   },
   {
     id: 3,
-    url: "/formal-face.jpg",
+    url: "/images/std-3.jpg",
   },
   {
     id: 4,
-    url: "/shiina.jpg",
+    url: "/images/std-4.jpg",
   },
   {
     id: 5,
-    url: "/formal-face.jpg",
+    url: "/images/std-5.jpg",
   },
+  {
+    id: 6,
+    url: "/images/std-6.jpg",
+  },
+  {
+    id: 7,
+    url: "/images/std-7.jpg",
+  },
+  {
+    id: 8,
+    url: "/images/std-8.jpg",
+  },
+  {
+    id: 9,
+    url: "/images/std-9.jpg",
+  },
+  {
+    id: 10,
+    url: "/images/std-10.jpg",
+  },
+  {
+    id: 11,
+    url: "/images/std-11.jpg",
+  },
+  {
+    id: 12,
+    url: "/images/std-12.jpg",
+  },
+  {
+    id: 13,
+    url: "/images/std-13.jpg",
+  },
+  {
+    id: 14,
+    url: "/images/std-14.jpg",
+  },
+
 ];
 
 export default function Memorable({
@@ -32,7 +69,7 @@ export default function Memorable({
   refImage,
 }: {
   windowWidth: number;
-  refImage: any;
+  refImage: React.RefObject<HTMLHeadingElement>;
 }) {
   const [imageIndex, setImageIndex] = useState<number | null>(null);
 
@@ -41,7 +78,7 @@ export default function Memorable({
     <>
       <MainLayout className="gap-10">
         <h1 ref={refImage} className="latin-25 text-center relative">
-          Memorable Moment
+          Nosotros
           <motion.span
             animate={text1 ? { scaleX: 0 } : { scaleX: 1 }}
             transition={{ type: "tween", duration: 0.5 }}
